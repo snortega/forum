@@ -1,0 +1,61 @@
+.rowHeader {
+  border: 1px solid lightgray;
+  background-color: lightgray;
+  padding: 10px;
+  font-weight: 700;
+}
+.banner-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid lightgray;
+  background-color: lightgray;
+  padding: 10px;
+}
+.banner-title {
+  text-align: left;
+  font-weight: 700;
+  padding: 10px;
+}
+.banner-user {
+  text-align: right;
+  font-weight: 700;
+  padding-right: 10px;
+}
+.topics {
+  font-weight: 700;
+  padding-left: 10px;
+}
+/* YourComponent.css or App.css or any appropriate CSS file */
+.btn-link.no-hover {
+  color: blue !important; /* Inherit the color from the parent and use !important to override Bootstrap */
+  background-color: transparent !important; /* Set background-color to transparent and use !important to override Bootstrap */
+  border: none !important; /* Remove border and use !important to override Bootstrap */
+}
+
+.btn-link.no-hover:hover {
+  color: blue !important; /* Inherit the color from the parent on hover and use !important to override Bootstrap */
+}
+
+.btn-link {
+  height: 25px;
+  width: 75px;
+}
+.rowThread {
+  padding: 10px;
+}
+.new-thread {
+  text-align: left !important;
+  padding: 10px !important;
+  margin: 0 !important;
+  
+}
+.nowrap-button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 150px;
+  height: 50px;
+  margin:0;
+  padding:0;
+}

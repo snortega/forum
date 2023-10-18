@@ -1,0 +1,18 @@
+.forum-container {
+  min-height: 500px;
+  padding: 0;
+}
+.directory-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the container takes at least the full viewport height */
+  margin: 50px;
+}
+.no-login {
+  padding: 40px 0;
+  text-align: center;
+}
+.no-login h1 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}

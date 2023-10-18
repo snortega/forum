@@ -1,0 +1,51 @@
+.create-container{
+   height:100vh;
+}
+
+.create-text-container h1{
+    float:center;
+    color: lightblue;
+    -webkit-text-stroke-color: navy;
+    -webkit-text-stroke-width: 2px;
+    margin-top: 5vh;
+    font-size: 60px;
+    font-weight:bold;
+}
+
+.create-form {
+    position:absolute;
+    background-color: tan;
+    border: 2px solid black;
+    margin-top:12vh;
+    margin-left: 10vw;
+    height: 70vh;
+    width: 80vw;
+}
+
+.create-buttons {   
+    margin-left: -100px;
+    margin-top: 3vh;
+}
+
+.create-buttons button{
+    margin-left: 100px;
+    float:center;
+    background-color: rgba(0, 0, 0, 0.26);
+    border: 2px solid black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.create-buttons button:hover {
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid rgb(255, 255, 255, 1);
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
