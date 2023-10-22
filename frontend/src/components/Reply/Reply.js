@@ -1,66 +1,76 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from 'react'
 import "./Reply.css";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useNavigate, useLocation } from "react-router-dom";
-import { createNewReply } from "../../service/ThreadAPI";
-import { useAuth } from "../../service/AuthContextProvider";
-
+import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
+import axios from 'axios'
 
 const Reply = () => {
-  const {  user } = useAuth();
-  const location = useLocation();
-  const selectedThreadId = location.state ? location.state.selectedThreadId : null;
+
+  const {id} = useParams();
   const navigate = useNavigate();
-  const [replyBody, setReplyBody] = useState('');
+  const [bodyInput, setBodyInput] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
+  
+  useEffect(() => {
+    const userItem = localStorage.getItem("user");
 
-  const handleReplyBodyChange = (event) => {
-    setReplyBody(event.target.value);
-  };
-
-  const handleCreateNewReply = async () => {
-    try {
-
-
-
-
-      const replyData = {
-        _id: selectedThreadId,
-        reply: {
-          author: user.username,
-          content: replyBody,
-        },
-      };
-      console.log(replyData);
-
-      await createNewReply(replyData);
-      navigate('/directory');
-    } catch (error) {
-      console.error('Error creating reply:', error);
+    if (!userItem) {
+      // Redirect unauthorized users to the login page
+      navigate("/login");
     }
+  }, []);
+
+  const navBack= () => {
+    navigate(`/thread/${id}`)
   };
+
+  const axiosInstance = axios.create({
+    baseURL: 'http://localhost:8080',
+  });
+
+  const createReply = async () => {
+    if(!bodyInput) {
+      setErrorMessage("Reply creation failed. Reply must have a body.");
+      return;
+    }
+
+    const replyObject = {
+        replier: JSON.parse(localStorage.getItem("user")).username,
+        reply_to: id,
+        body: bodyInput
+    }
+
+    try {
+      const response = await axiosInstance.post('/reply', replyObject);
+      setErrorMessage("");
+      console.log('Reply created:', response.data);
+      navigate(`/thread/${id}`)
+    } catch (error) {
+      console.error('Error creating Reply:', error);
+      setErrorMessage("Internal error: Reply creation failed.");
+    }
+
+  }
 
   return (
     <div className="reply-container">
-      <div className="reply-text-container">
-        <h1>Reply</h1>
-      </div>
-      
       <div className="reply-form">
+        <h1>Reply</h1>
         <Form>
-          <Form.Group className="mt-4" controlId="exampleTextarea" style={{ marginLeft: '5vw', width: '70vw' }}>
-            <Form.Control as="textarea" rows={12} placeholder="Reply Body" onChange={handleReplyBodyChange} />
+          <Form.Group>
+            <Form.Control as="textarea" rows={6} placeholder="Reply Body" onChange={(e) => setBodyInput(e.target.value)} style={{width:'70vw',height:'30vh',fontSize:'12px',marginTop:'3vh'}}></Form.Control>
           </Form.Group>
-
-          <Button className="mt-3" variant="primary" onClick={handleCreateNewReply}>
-            Submit
-          </Button>
-
-          <Button className="mt-3" variant="danger" type="button" style={{ marginLeft: '5vw' }} onClick={() => navigate('/directory')}>
-            Cancel
-          </Button>
         </Form>
+
+        {errorMessage && <p style={{fontSize: "28px",color: "red",fontWeight: "bold", WebkitTextStrokeColor: "black",WebkitTextStrokeWidth: "1px", marginTop:"20px"}}>{errorMessage}</p>}     
+      
+        <div className="reply-buttons">
+          <button onClick={createReply}>Reply</button>
+          <button onClick={navBack}>Go Back</button>
+        </div>
       </div>
+
     </div>
   );
 };

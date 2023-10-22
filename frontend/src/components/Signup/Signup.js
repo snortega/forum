@@ -10,6 +10,10 @@ const Signup = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const axiosInstance = axios.create({
+    baseURL: 'http://localhost:8080',
+  });
+
   const handleSubmit = async () => {
 
     const requestObject =
@@ -25,12 +29,15 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post('/user', requestObject);
+      const response = await axiosInstance.post('/user', requestObject);
       console.log('User created:', response.data);
+      setSuccessMessage("User creation successful! You may now log in.");
+      setErrorMessage("");
       return response.data;
     } catch (error) {
       console.error('Error creating user:', error);
-      throw error;
+      setSuccessMessage("");
+      setErrorMessage("Sign up failed. Please check your information.");
     }
   }
 
@@ -56,8 +63,8 @@ const Signup = () => {
         <a href="http://localhost:3000/"><button style={{}}> Back to Home</button></a>  
         </div> 
 
-        {successMessage && <p style={{color: "green", marginTop:"20px"}}>{successMessage}</p>}
-        {errorMessage && <p style={{color: "red", marginTop:"20px"}}>{errorMessage}</p>}
+        {successMessage && <p style={{fontSize: "28px",color: "green",fontWeight: "bold", WebkitTextStrokeColor: "black",WebkitTextStrokeWidth: "1px", marginTop:"20px"}}>{successMessage}</p>}
+        {errorMessage && <p style={{fontSize: "28px",color: "red",fontWeight: "bold", WebkitTextStrokeColor: "black",WebkitTextStrokeWidth: "1px", marginTop:"20px"}}>{errorMessage}</p>}
       </div>
 
     </div>

@@ -5,8 +5,8 @@ import board from './board.png';
 const Landing = () => {
 
   useEffect( () => {
-
-  },[]);
+    localStorage.removeItem("user");
+  });
 
   return (
     <div className="landing-container" style={{backgroundImage:'url("/texture.jpg")'}}>
