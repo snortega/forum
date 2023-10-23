@@ -31,10 +31,6 @@ const db = mysql.createPool({
     res.send("Hello World!");
   });
 
-  //const userRoutes = require('./routes/userAPI')(db);
-  //const threadRoutes = require('./routes/threadRoute')(db);
-  //const replyRoutes = require('./routes/replyRoute')(db);
-
 /* ----------/user ENDPOINTS---------- */
 
 app.post("/user", async (req,res) => {
